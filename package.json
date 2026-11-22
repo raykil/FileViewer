@@ -1,0 +1,64 @@
+{
+  "name": "file-viewer",
+  "displayName": "FileViewer",
+  "description": "Browse npz, npy, parquet, csv and ROOT files as sortable tables with statistics. No Python or ROOT needed.",
+  "version": "0.1.0",
+  "publisher": "raymond",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": [
+    "Data Science",
+    "Visualization"
+  ],
+  "keywords": ["npz", "npy", "numpy", "parquet", "csv", "root", "cern", "ttree"],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "customEditors": [
+      {
+        "viewType": "fileViewer.data",
+        "displayName": "FileViewer",
+        "priority": "default",
+        "selector": [
+          { "filenamePattern": "*.npz" },
+          { "filenamePattern": "*.npy" },
+          { "filenamePattern": "*.parquet" },
+          { "filenamePattern": "*.parq" },
+          { "filenamePattern": "*.pq" },
+          { "filenamePattern": "*.root" }
+        ]
+      },
+      {
+        "viewType": "fileViewer.text",
+        "displayName": "FileViewer",
+        "priority": "option",
+        "selector": [
+          { "filenamePattern": "*.csv" },
+          { "filenamePattern": "*.tsv" }
+        ]
+      }
+    ]
+  },
+  "scripts": {
+    "build": "esbuild src/extension.ts --bundle --platform=node --target=node20 --outfile=dist/extension.js --external:vscode --external:xhr2 --external:tmp --alias:@oneidentity/zstd-js=./node_modules/jsroot/modules/base/zstd.mjs",
+    "watch": "npm run build -- --sourcemap --watch",
+    "check": "tsc --noEmit",
+    "vscode:prepublish": "npm run build -- --minify",
+    "package": "vsce package --allow-missing-repository"
+  },
+  "dependencies": {
+    "fflate": "^0.8.3",
+    "hyparquet": "^1.33.1",
+    "hyparquet-compressors": "^1.1.3",
+    "jsroot": "^7.12.0",
+    "papaparse": "^5.7.1"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "@types/papaparse": "^5.5.2",
+    "@types/vscode": "1.90",
+    "esbuild": "^0.28.2",
+    "typescript": "^7.0.2"
+  }
+}
