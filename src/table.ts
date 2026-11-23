@@ -59,5 +59,5 @@ export function stats(columns: Column[], bins = 40) {
     const x = Number(v);
     if (numeric(v, dtype) && isFinite(x)) { deviation += (x - mean) ** 2; histogram[Math.min(bins - 1, Math.floor((x - min) / width))]++; }
   }
-  return { count, missing, NaN: nan, inf, finite, min, max, mean, std: Math.sqrt(deviation / finite), histogram };
+  return { count, missing, NaN: nan, inf, finite, min, max, sum, mean, std: Math.sqrt(deviation / finite), histogram };
 }

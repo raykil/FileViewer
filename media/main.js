@@ -76,7 +76,8 @@ function setPrefs(changes) {
 function renderTree() {
   const item = (name, key, cls) => `<div class="${cls}" data-key="${key}" title="${esc(name)}" draggable="true">${esc(name)}</div>`;
   const grouped = tables.some(t => t.file !== tables[0].file);
-  $('tree').innerHTML = tables.map((t, i) => (grouped && t.file !== tables[i - 1]?.file ? `<h5>${esc(t.file)}</h5>` : '') + item(t.name, `${i}`, 'table') + t.fields.map((f, j) => item(f.name, `${i}:${j}`, 'field')).join('')).join('');
+  const heading = (t, i) => t.name === t.file || grouped && t.file !== tables[i - 1]?.file ? `<h5>${esc(t.file)}</h5>` : '';
+  $('tree').innerHTML = tables.map((t, i) => heading(t, i) + (t.name === t.file ? '' : item(t.name, `${i}`, 'table')) + t.fields.map((f, j) => item(f.name, `${i}:${j}`, 'field')).join('')).join('');
 }
 
 function renderGrid({ el, view: { columns, rows }, state }) {

@@ -20,6 +20,8 @@ Browse scientific data files in VS Code as sortable tables with statistics. Ever
 
 Your display settings are remembered across files.
 
+To open a file from the terminal, run `code path/to/file` (except CSV/TSV, which still need **Open With…**).
+
 ## Development
 
 ```sh
